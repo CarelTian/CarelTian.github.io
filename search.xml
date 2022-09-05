@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>此站的搭建流程</title>
+      <link href="/2022/02/27/Chat01/"/>
+      <url>/2022/02/27/Chat01/</url>
+      
+        <content type="html"><![CDATA[<p><strong>博客框架: hexo</strong></p><p><strong>主题：Yun</strong></p><p><strong>版本控制 :Git</strong></p><p><strong>服务器：Apache（部署在GitHub pages就不需要）</strong></p><p><strong>MarkDown编辑器：Typora</strong></p><p><strong>文本编辑器：Visual Studio Code</strong></p><h3 id="开端"><a href="#开端" class="headerlink" title="开端"></a>开端</h3><hr><p>关于我为什么要做一个博客，只能说一时兴起。我其实很早以前就决定不做web开发，因为单纯的不喜欢，我更偏向于C&#x2F;S结构的软件。后来经过慢慢地摸索，觉得web也挺有意思的。因为不用造轮子，有大量的框架，模板可以利用。最近想要开始写日志，把日志放在静态网页上有很多优点，比如</p><ol><li>美观。</li><li>成就感。</li></ol><p>废话就不说了，开始搭建。</p><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><hr><p>如果使用了别人做的主题，那就必须要查看文档。文档中包含了很多配置项，能够指导你个性化使用主题，发布文章的操作流程。如何配置这里不多说，不同主题的使用方法也是不同。配置好后，使用hexo -s 命令预览效果，如果ok那就开始部署。</p><blockquote><p>1.部署在服务器中</p></blockquote><p>下载git包</p><pre class="language-shell" data-language="shell"><code class="language-shell">apt-get updateapt-get install git -y </code></pre><p>创建仓库文件夹,并修改读写权限</p><pre class="language-shell" data-language="shell"><code class="language-shell">mkdir &#x2F;var&#x2F;repo&#x2F;chown -R $USER:$USER &#x2F;var&#x2F;repo&#x2F;chmod -R 755 &#x2F;var&#x2F;repo&#x2F;</code></pre><p>创建远程仓库</p><pre class="language-shell" data-language="shell"><code class="language-shell">cd &#x2F;var&#x2F;repogit init --bare myblog.git</code></pre><p>创建git钩子（仓库与服务器根目录同步）</p><pre class="language-shell" data-language="shell"><code class="language-shell">vim &#x2F;var&#x2F;repo&#x2F;myblog.git&#x2F;hooks&#x2F;post-receivegit --work-tree&#x3D;&#123;Apache服务器根目录&#125; --git-dir&#x3D;&#x2F;var&#x2F;repo&#x2F;myblog.git checkout -f</code></pre><p>增加可执行权限</p><pre class="language-shell" data-language="shell"><code class="language-shell">chmod +x &#x2F;var&#x2F;repo&#x2F;myblog.git&#x2F;hooks&#x2F;post-receive</code></pre><p>回到本地操作系统上，在hexo站点配置_config.yml。更改其中的url和deploy，马赛克处是ip地址</p><p><img src="https://cdn.jsdelivr.net/gh/CarelTian/MyStatic@master/images/chat01-1.png"><br><img src="https://cdn.jsdelivr.net/gh/CarelTian/MyStatic@master/images/chat01-2.png"></p>  <div class="success"><blockquote><p>大功高成，还差最后一步命令上传到git仓库</p></blockquote>  </div><pre class="language-bash" data-language="bash"><code class="language-bash">hexo clean <span class="token operator">&amp;</span> hexo g -d</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> -建站 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> -随便写写 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
