@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>此站的搭建流程</title>
+      <link href="/2023/04/25/Chat01/"/>
+      <url>/2023/04/25/Chat01/</url>
+      
+        <content type="html"><![CDATA[<p><strong>博客框架: hexo</strong></p><p><strong>主题：Yun</strong></p><p><strong>版本控制 :Git</strong></p><p><strong>服务器：Apache（部署在GitHub pages就不需要）</strong></p><p><strong>MarkDown编辑器：Typora</strong></p><p><strong>文本编辑器：Visual Studio Code</strong></p><h3 id="开端"><a href="#开端" class="headerlink" title="开端"></a>开端</h3><hr><p>关于我为什么要做一个博客，只能说一时兴起。我其实很早以前就决定不做web开发，因为单纯的不喜欢，我更偏向于C&#x2F;S结构的软件。后来经过慢慢地摸索，觉得web也挺有意思的。因为不用造轮子，有大量的框架，模板可以利用。最近想要开始写日志，把日志放在静态网页上有很多优点，比如</p><ol><li>美观。</li><li>成就感。</li></ol><p>废话就不说了，开始搭建。</p><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><hr><p>如果使用了别人做的主题，那就必须要查看文档。文档中包含了很多配置项，能够指导你个性化使用主题，发布文章的操作流程。如何配置这里不多说，不同主题的使用方法也是不同。配置好后，使用hexo -s 命令预览效果，如果ok那就开始部署。</p><blockquote><p>1.部署在服务器中</p></blockquote><p>下载git包</p><pre class="language-shell" data-language="shell"><code class="language-shell">apt-get updateapt-get install git -y </code></pre><p>创建仓库文件夹,并修改读写权限</p><pre class="language-shell" data-language="shell"><code class="language-shell">mkdir &#x2F;var&#x2F;repo&#x2F;chown -R $USER:$USER &#x2F;var&#x2F;repo&#x2F;chmod -R 755 &#x2F;var&#x2F;repo&#x2F;</code></pre><p>创建远程仓库</p><pre class="language-shell" data-language="shell"><code class="language-shell">cd &#x2F;var&#x2F;repogit init --bare myblog.git</code></pre><p>创建git钩子（仓库与服务器根目录同步）</p><pre class="language-shell" data-language="shell"><code class="language-shell">vim &#x2F;var&#x2F;repo&#x2F;myblog.git&#x2F;hooks&#x2F;post-receivegit --work-tree&#x3D;&#123;Apache服务器根目录&#125; --git-dir&#x3D;&#x2F;var&#x2F;repo&#x2F;myblog.git checkout -f</code></pre><p>增加可执行权限</p><pre class="language-shell" data-language="shell"><code class="language-shell">chmod +x &#x2F;var&#x2F;repo&#x2F;myblog.git&#x2F;hooks&#x2F;post-receive</code></pre><p>回到本地操作系统上，在hexo站点配置_config.yml。更改其中的url和deploy，马赛克处是ip地址</p><p><img src="https://cdn.jsdelivr.net/gh/CarelTian/MyStatic@master/images/chat01-1.png"><br><img src="https://cdn.jsdelivr.net/gh/CarelTian/MyStatic@master/images/chat01-2.png"></p>  <div class="success"><blockquote><p>大功高成，还差最后一步命令上传到git仓库</p></blockquote>  </div><pre class="language-bash" data-language="bash"><code class="language-bash">hexo clean <span class="token operator">&amp;</span> hexo g -d</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 建站 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 随便写写 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>golang Web实战Gin+Gorm+Vue</title>
       <link href="/2023/04/25/golang-Web%E5%AE%9E%E6%88%98Gin+Gorm+Vue/"/>
       <url>/2023/04/25/golang-Web%E5%AE%9E%E6%88%98Gin+Gorm+Vue/</url>
@@ -32,8 +57,8 @@
     
     <entry>
       <title>RF学习总结</title>
-      <link href="/2023/04/07/RF%E7%AC%94%E8%AE%B0/"/>
-      <url>/2023/04/07/RF%E7%AC%94%E8%AE%B0/</url>
+      <link href="/2023/04/10/RF%E7%AC%94%E8%AE%B0/"/>
+      <url>/2023/04/10/RF%E7%AC%94%E8%AE%B0/</url>
       
         <content type="html"><![CDATA[<h1 id="Robot-Framework简介"><a href="#Robot-Framework简介" class="headerlink" title="Robot  Framework简介"></a>Robot  Framework简介</h1><p>RPA框架是机器人过程自动化(RPA)的开源库和工具的集合，它被设计为与Robot Framework和Python一起使用。目标是为软件机器人开发人员提供良好的文档和积极维护的核心库。相比较于纯python实现，它的使用逻辑清晰，使用方法简单，可扩展性高。但是在某些特殊场景，Robot Framework具有局限性，比如并发执行，直接接管浏览器而不需要重新打开。</p><p>以下Robot  Framework简称RF。RF的应用分为两种，一个是为公司解放劳动力，自动化处理简单但又繁琐的操作。二是为个人使用，现电商抢购活动还有秒杀抢单我怀疑完全可以用RF实现的，只要网速够快，并且成功破解了验证码是没有人能抢过它的。</p><h1 id="RF准备工作"><a href="#RF准备工作" class="headerlink" title="RF准备工作"></a>RF准备工作</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><table><thead><tr><th>项目</th><th>版本</th></tr></thead><tbody><tr><td>python</td><td>3.7.9</td></tr><tr><td>rpaframework</td><td>22.2.3</td></tr><tr><td>robotframework</td><td>5.0.1</td></tr><tr><td>selenium</td><td>4.5.0</td></tr></tbody></table><h2 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h2><p>RF实体是一个.robot文件，pycharm的插件有点问题，而且不能识别里面的Keyword。因此使用Vscode进行开发。</p><p>需要准备的插件如下所示</p><p><img src="/../images/RF_1.png" alt="图一"></p><h1 id="RF结构"><a href="#RF结构" class="headerlink" title="RF结构"></a>RF结构</h1><p>RF分为四部分<strong>Settings,  Variables,  Test Cases,  Keywords</strong></p><h2 id="Setting"><a href="#Setting" class="headerlink" title="*** Setting ***"></a>*** Setting ***</h2><ul><li>Documentation    用于机器人的描述和介绍，对执行并没有什么作用</li><li>Library    用于导入各种库，每个库会有上百个Keyword</li></ul><p>Library的官方文档（<a href="https://rpaframework.org/index.html">https://rpaframework.org/index.html</a>）</p><h2 id="Variable"><a href="#Variable" class="headerlink" title="*** Variable ***"></a>*** Variable ***</h2><p>用于程序初始化的变量</p><ul><li>@ 用作创建列表</li><li>&amp; 用作创建字典</li><li>$ 用作创建字符串或数字</li></ul><h2 id="Test-Cases"><a href="#Test-Cases" class="headerlink" title="*** Test  Cases ***"></a>*** Test  Cases ***</h2><p>与Task作用一样，用于写总流程</p><h2 id="Keywords"><a href="#Keywords" class="headerlink" title="***Keywords ***"></a>***Keywords ***</h2><p>由多个自定义的Keyword组成，表示执行的步骤。</p><p>定义的Keyword下行加[Arguments]    ${} 可作为函数的参数。</p><pre class="language-none"><code class="language-none">循环表示方法FOR$&#123;&#125;IN@&#123;&#125;do  something$&#123;&#125;END判断表示方法IFcondititondo()ELSE IF conditiondo()ELSEdo()END异常处理TRYSome KeywordEXCEPT    ValueError: *    type&#x3D;GLOB    AS   $&#123;error&#125;Error Handler 1    $&#123;error&#125;EXCEPT    [Ee]rror \\d+    (Invalid|Bad) usage    type&#x3D;REGEXP    AS    $&#123;error&#125;Error Handler 2    $&#123;error&#125;EXCEPT    AS    $&#123;error&#125;Error Handler 3    $&#123;error&#125;END</code></pre><h1 id="Python扩展"><a href="#Python扩展" class="headerlink" title="Python扩展"></a>Python扩展</h1><p>导入库时使用的测试库的名称与实现它的模块或类的名称相同。</p><h2 id="Library"><a href="#Library" class="headerlink" title="Library"></a>Library</h2><p><strong>from robot.api.deco import library</strong></p><p>RF导入python的库就像直接实例化一个类，运行构造参数，如下图所示。</p><p><img src="/../images/RF_2.png" alt="图二"></p><p>@library装饰器<br>配置实现为类的库的一种简单方法是使用robot.api.deco.library类装饰器。它允许配置库的作用域、版本、自定义参数转换器、文档格式和监听器，可选参数scope、version、converter、doc_format和监听器。当使用这些参数时，它们会自动设置匹配的ROBOT_LIBRARY_SCOPE、ROBOT_LIBRARY_VERSION、ROBOT_LIBRARY_CONVERTERS、ROBOT_LIBRARY_DOC_FORMAT和ROBOT_LIBRARY_LISTENER属性</p><h2 id="Keyword"><a href="#Keyword" class="headerlink" title="Keyword"></a>Keyword</h2><p><strong>from robot.api.deco import keyword</strong></p><p>默认情况下，一个python类或模块下的所有函数被认为是Keyword。如果在设置中使用下图设置，默认不配置为keyword。函数的前缀可以使用@keyword开启。</p><p><img src="/../images/RF_3.png" alt="图三"></p><p>或者直接使用@not_keyword禁用RF。</p><p>@keyword(name&#x3D;None,tag&#x3D;(),type&#x3D;())-&gt;Any</p><p>可以修改把参数放在name里面</p><h1 id="常用的库"><a href="#常用的库" class="headerlink" title="常用的库"></a>常用的库</h1><h2 id="RPA-Browswer-Selenium"><a href="#RPA-Browswer-Selenium" class="headerlink" title="RPA.Browswer.Selenium"></a>RPA.Browswer.Selenium</h2><p> auto_close&#x3D;${<em>FALSE</em>}    &#x2F;&#x2F;执行完不自动关闭         </p><ul><li><p>打开网站        <u>Open Available Browser</u>            url</p></li><li><p>输入内容         <u>Input Text</u>          locator       text       clear&#x3D;True</p></li><li><p>下拉框选择        <u>Select From List By Value</u>            locator            values</p></li><li><p>单选按钮        <u>Select Radio Button</u>            group_name            value</p></li><li><p>点击元素        <u>Click Element</u>            locator            </p><ul><li><p>id:example</p></li><li><p>name:example</p></li><li><p>xpath:&#x2F;&#x2F;div[@id&#x3D;”example”]</p></li><li><p>css:div#example</p></li></ul></li><li><p>直接提交页面的唯一表单         <u>Submit Form</u></p></li><li><p>截图          <u>Screenshot</u>         locator          output</p></li><li><p>等待元素出现          <u>Wait Until Page Contains Element</u>             locator              timeout&#x3D;None</p></li></ul><h2 id="RPA-Excel-Files"><a href="#RPA-Excel-Files" class="headerlink" title="RPA.Excel.Files"></a>RPA.Excel.Files</h2><ul><li>打开excel        <u>Open Workbook</u>        path        </li><li>读取返回表格         <u>Read Worksheet As Table</u>      name&#x3D;None     header&#x3D;False     start&#x3D;None</li><li>创建excel        <u>Create Workbook</u>      path     fmt&#x3D;xlsx       sheet_name&#x3D;None</li><li>设置表格值      <u>Set Cell Value</u>        row        column      value      </li><li>获取表格值并返回      <u>Get Cell Value</u>        row      column      name&#x3D;active sheet</li></ul><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol><li>Robot Framework User Guide（<a href="http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html">http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html</a>）</li><li>RPA Documentation, Training Courses, Certificates | Robocorp(<a href="https://robocorp.com/docs">https://robocorp.com/docs</a>)</li><li>Keyword libraries(<a href="https://robocorp.com/docs/libraries">https://robocorp.com/docs/libraries</a>)</li><li>XPATH定位的用法(<a href="https://www.cnblogs.com/aiyiless/p/16111340.html">https://www.cnblogs.com/aiyiless/p/16111340.html</a>)</li></ol>]]></content>
       
@@ -57,8 +82,8 @@
     
     <entry>
       <title>iptables屏蔽所有国外IP!网络安全的利器！</title>
-      <link href="/2023/04/06/Chat02/"/>
-      <url>/2023/04/06/Chat02/</url>
+      <link href="/2022/03/06/Chat02/"/>
+      <url>/2022/03/06/Chat02/</url>
       
         <content type="html"><![CDATA[<h1 id="iptables简介"><a href="#iptables简介" class="headerlink" title="iptables简介"></a>iptables简介</h1><p>netfilter&#x2F;iptables（简称为iptables）组成Linux平台下的包过滤防火墙，与大多数的Linux软件一样，这个包过滤防火墙是免费的，它可以代替昂贵的商业防火墙解决方案，完成封包过滤、封包重定向和网络地址转换（NAT）等功能。</p><h1 id="iptables基础"><a href="#iptables基础" class="headerlink" title="iptables基础"></a><strong>iptables基础</strong></h1><p>​    规则（rules）其实就是网络管理员预定义的条件，规则一般的定义为“如果数据包头符合这样的条件，就这样处理这个数据包”。规则存储在内核空间的信息 包过滤表中，这些规则分别指定了源地址、目的地址、传输协议（如TCP、UDP、ICMP）和服务类型（如HTTP、FTP和SMTP）等。当数据包与规 则匹配时，iptables就根据规则所定义的方法来处理这些数据包，如放行（accept）、拒绝（reject）和丢弃（drop）等。配置防火墙的 主要工作就是添加、修改和删除这些规则。</p><h1 id="iptables命令的管理控制选项"><a href="#iptables命令的管理控制选项" class="headerlink" title="iptables命令的管理控制选项"></a><strong>iptables命令的管理控制选项</strong></h1><pre class="language-none"><code class="language-none">-A 在指定链的末尾添加（append）一条新的规则-D  删除（delete）指定链中的某一条规则，可以按规则序号和内容删除-I  在指定链中插入（insert）一条新的规则，默认在第一行添加-R  修改、替换（replace）指定链中的某一条规则，可以按规则序号和内容替换-L  列出（list）指定链中所有的规则进行查看-E  重命名用户定义的链，不改变链本身-F  清空（flush）-N  新建（new-chain）一条用户自己定义的规则链-X  删除指定表中用户自定义的规则链（delete-chain）-P  设置指定链的默认策略（policy）-Z 将所有表的所有链的字节和数据包计数器清零-n  使用数字形式（numeric）显示输出结果-v  查看规则表详细信息（verbose）的信息-V  查看版本(version)-h  获取帮助（help）</code></pre><h1 id="防火墙处理数据包的四种方式"><a href="#防火墙处理数据包的四种方式" class="headerlink" title="防火墙处理数据包的四种方式"></a><strong>防火墙处理数据包的四种方式</strong></h1><p>ACCEPT 允许数据包通过<br>DROP 直接丢弃数据包，不给任何回应信息<br>REJECT 拒绝数据包通过，必要时会给数据发送端一个响应的信息。<br>LOG在&#x2F;var&#x2F;log&#x2F;messages文件中记录日志信息，然后将数据包传递给下一条规则</p><h1 id="iptables-官方文档"><a href="#iptables-官方文档" class="headerlink" title="iptables 官方文档"></a>iptables 官方文档</h1><p><a href="https://netfilter.org/">https://netfilter.org/</a></p><h1 id="屏蔽外网IP"><a href="#屏蔽外网IP" class="headerlink" title="屏蔽外网IP"></a>屏蔽外网IP</h1><p>下面介绍一种方法只有国内的IP才能连接服务器，对防火墙建设有参考价值</p><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在我刚接触云产品时，使用的是腾讯云赠送的一个月云服务器。这一个月时间里我似乎也没部署过什么项目，就照着书上和网上的资料稍微捣鼓了下Ubuntu，但是没有使用网络服务的。可就在短短一个月内，有次上机检查，就发现cpu占用率99%，接着腾讯云给我发了条消息，说是中了挖矿病毒。查看日志后，来自卢森堡的一个IP成功登录。</p><p>后来我在阿里云租了个云服务器，在上面部署了C&#x2F;S网络通信类的程序。刚开始网络编程功底不熟，没有对各种异常处理，如果没接收到预期格式的数据包就会报错。我使用的是一个很隐蔽的端口，但是经常会收到全球各地的连接，只要对方一发送数据包，服务器执行的程序就会报错退出。</p><p>再后来，我写了个网站，日志中经常能看到会有很多来自国外的爬虫进来逛。那么有没有什么方法屏蔽所有国外的连接呢？</p><h2 id="建立一条规则链"><a href="#建立一条规则链" class="headerlink" title="建立一条规则链"></a>建立一条规则链</h2><p>创建一条规则链mylink，加到入站的规则中</p><pre class="language-bash" data-language="bash"><code class="language-bash">iptables -N mylinkiptables -A INPUT -j mylink</code></pre><h2 id="获取国内所有的IP"><a href="#获取国内所有的IP" class="headerlink" title="获取国内所有的IP"></a>获取国内所有的IP</h2><p>获取所有国内的ip网段，保存到china_ssr.txt文件中</p><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> -q --timeout<span class="token operator">=</span><span class="token number">60</span> -O- <span class="token string">'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest'</span> <span class="token operator">|</span> <span class="token function">awk</span> -F<span class="token punctuation">\</span><span class="token operator">|</span> <span class="token string">'/CN\|ipv4/ &#123; printf("%s/%d\n", $4, 32-log($5)/log(2)) &#125;'</span> <span class="token operator">></span> /root/china_ssr.txt</code></pre><h2 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h2><p>观察ip网段，使用的是网络前缀格式，正好满足iptables的命令格式。用vim t跳转到末尾，发现竟然有8600多行国内网段。那么首先排除一个个手动输入命令的可能，于是我写了个脚本。</p><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">while</span> <span class="token builtin class-name">read</span> line<span class="token keyword">do</span>   iptables -A mylink -s <span class="token variable">$line</span> -j ACCEPT<span class="token keyword">done</span> <span class="token operator">&lt;</span> china_ssr.txt</code></pre><p>上面的脚本逐行读取文件的内容，然后执行命令。经过测试，发现iptables的优先级是自顶向下的，即当前规则必须是上面规则的子集，不然就无效。现在已经把所有国内IP允许访问，接下来就禁止全网IP。</p><pre class="language-bash" data-language="bash"><code class="language-bash">iptables -A mylink -j DROP</code></pre><p>上面这条命令极其危险。一定要放在链的末尾。<del>本人就是输入了这条命令，导致无法连接到云服务器，无奈之下到阿里云回滚两个月前的快照。</del></p>]]></content>
       
@@ -73,31 +98,6 @@
         <tags>
             
             <tag> 网络安全 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>此站的搭建流程</title>
-      <link href="/2022/02/27/Chat01/"/>
-      <url>/2022/02/27/Chat01/</url>
-      
-        <content type="html"><![CDATA[<p><strong>博客框架: hexo</strong></p><p><strong>主题：Yun</strong></p><p><strong>版本控制 :Git</strong></p><p><strong>服务器：Apache（部署在GitHub pages就不需要）</strong></p><p><strong>MarkDown编辑器：Typora</strong></p><p><strong>文本编辑器：Visual Studio Code</strong></p><h3 id="开端"><a href="#开端" class="headerlink" title="开端"></a>开端</h3><hr><p>关于我为什么要做一个博客，只能说一时兴起。我其实很早以前就决定不做web开发，因为单纯的不喜欢，我更偏向于C&#x2F;S结构的软件。后来经过慢慢地摸索，觉得web也挺有意思的。因为不用造轮子，有大量的框架，模板可以利用。最近想要开始写日志，把日志放在静态网页上有很多优点，比如</p><ol><li>美观。</li><li>成就感。</li></ol><p>废话就不说了，开始搭建。</p><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><hr><p>如果使用了别人做的主题，那就必须要查看文档。文档中包含了很多配置项，能够指导你个性化使用主题，发布文章的操作流程。如何配置这里不多说，不同主题的使用方法也是不同。配置好后，使用hexo -s 命令预览效果，如果ok那就开始部署。</p><blockquote><p>1.部署在服务器中</p></blockquote><p>下载git包</p><pre class="language-shell" data-language="shell"><code class="language-shell">apt-get updateapt-get install git -y </code></pre><p>创建仓库文件夹,并修改读写权限</p><pre class="language-shell" data-language="shell"><code class="language-shell">mkdir &#x2F;var&#x2F;repo&#x2F;chown -R $USER:$USER &#x2F;var&#x2F;repo&#x2F;chmod -R 755 &#x2F;var&#x2F;repo&#x2F;</code></pre><p>创建远程仓库</p><pre class="language-shell" data-language="shell"><code class="language-shell">cd &#x2F;var&#x2F;repogit init --bare myblog.git</code></pre><p>创建git钩子（仓库与服务器根目录同步）</p><pre class="language-shell" data-language="shell"><code class="language-shell">vim &#x2F;var&#x2F;repo&#x2F;myblog.git&#x2F;hooks&#x2F;post-receivegit --work-tree&#x3D;&#123;Apache服务器根目录&#125; --git-dir&#x3D;&#x2F;var&#x2F;repo&#x2F;myblog.git checkout -f</code></pre><p>增加可执行权限</p><pre class="language-shell" data-language="shell"><code class="language-shell">chmod +x &#x2F;var&#x2F;repo&#x2F;myblog.git&#x2F;hooks&#x2F;post-receive</code></pre><p>回到本地操作系统上，在hexo站点配置_config.yml。更改其中的url和deploy，马赛克处是ip地址</p><p><img src="https://cdn.jsdelivr.net/gh/CarelTian/MyStatic@master/images/chat01-1.png"><br><img src="https://cdn.jsdelivr.net/gh/CarelTian/MyStatic@master/images/chat01-2.png"></p>  <div class="success"><blockquote><p>大功高成，还差最后一步命令上传到git仓库</p></blockquote>  </div><pre class="language-bash" data-language="bash"><code class="language-bash">hexo clean <span class="token operator">&amp;</span> hexo g -d</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 建站 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 随便写写 </tag>
             
         </tags>
       
